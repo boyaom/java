@@ -10,7 +10,7 @@ public class TextTranslate
 {
     public static String getTranslateResult(String totranslate) {
         try{
-            Credential cred = new Credential("AKIDGK9hzB6l9G8j48wShfOq1vYuzmIYYGhs", "vZv0pRnsgDTSBeZDZfT0GFyRdYCZgW5N");
+            Credential cred = new Credential("yourid", "yourpassword");//去腾讯云申请，免费的
 
             HttpProfile httpProfile = new HttpProfile();
             httpProfile.setEndpoint("tmt.tencentcloudapi.com");
