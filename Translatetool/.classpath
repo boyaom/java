@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="vendor/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="vendor/okhttp-2.5.0.jar"/>
+	<classpathentry kind="lib" path="vendor/okio-1.6.0.jar"/>
+	<classpathentry kind="lib" path="vendor/javax.xml.bind.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
