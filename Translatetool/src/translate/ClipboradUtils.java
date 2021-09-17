@@ -2,6 +2,7 @@ package translate;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 
 public class ClipboradUtils {
@@ -12,9 +13,14 @@ public class ClipboradUtils {
         Transferable clipT = clip.getContents(null);
         if (clipT != null) {
         // 检查内容是否是文本类型
-        if (clipT.isDataFlavorSupported(DataFlavor.stringFlavor))
-        return (String)clipT.getTransferData(DataFlavor.stringFlavor); 
+        	if (clipT.isDataFlavorSupported(DataFlavor.stringFlavor))
+        		return (String)clipT.getTransferData(DataFlavor.stringFlavor); 
         }
         return null;
+    }
+    protected static void setClipboardString(String text) throws Exception{
+    	Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
+    	Transferable trans = new StringSelection(text);
+    	clip.setContents(trans, null);
     }
 }

@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.JButton;
 
 public class MainFrame extends JFrame implements Runnable {
     private JTextArea srcContentTextField; // 记录剪切板的内容
@@ -18,11 +19,15 @@ public class MainFrame extends JFrame implements Runnable {
     private JCheckBox translateFlag;       //标记单词的获取来源
                                            //选中：手动输入    未选中：剪切板获取
     private Container topContainer;
+    private Container downContainer;
+    private JButton button;
     public MainFrame() {//初始化控件
         srcContentTextField = new JTextArea();
         resContentTextField = new JTextArea();
         translateFlag = new JCheckBox();
         topContainer = new Container();
+        button = new JButton();
+        downContainer = new Container();
     }
 
     public void setMinWindowLayout() {
@@ -33,14 +38,30 @@ public class MainFrame extends JFrame implements Runnable {
         srcContentTextField.setLineWrap(false);
         resContentTextField.setLineWrap(true);
         this.setLayout(new BorderLayout());
-        this.add(this.resContentTextField);
+
         translateFlag.setToolTipText("手动输入取词");
         topContainer.setLayout(new BorderLayout());
         topContainer.add(srcContentTextField, BorderLayout.CENTER);
         topContainer.add(translateFlag, BorderLayout.EAST);
         this.add(this.topContainer, BorderLayout.NORTH);
+        
+        button.setText("Copy");
+        downContainer.setLayout(new BorderLayout());
+        downContainer.add(resContentTextField, BorderLayout.CENTER);
+        downContainer.add(button, BorderLayout.SOUTH);
+        this.add(this.downContainer);
+        
         this.setResizable(true);
-
+        button.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ClipboradUtils.setClipboardString(resContentTextField.getText());
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+        	}
+        });
         translateFlag.addActionListener(new ActionListener() {//设置JCheckBox的监听
 
             @Override
