@@ -14,14 +14,14 @@ import javax.swing.event.DocumentListener;
 import javax.swing.JButton;
 
 public class MainFrame extends JFrame implements Runnable {
-    private JTextArea srcContentTextField; // ¼ÇÂ¼¼ôÇĞ°åµÄÄÚÈİ
-    private JTextArea resContentTextField; // ¼ÇÂ¼·­ÒëµÄÄÚÈİ
-    private JCheckBox translateFlag;       //±ê¼Çµ¥´ÊµÄ»ñÈ¡À´Ô´
-                                           //Ñ¡ÖĞ£ºÊÖ¶¯ÊäÈë    Î´Ñ¡ÖĞ£º¼ôÇĞ°å»ñÈ¡
+    private JTextArea srcContentTextField; // è®°å½•å‰ªåˆ‡æ¿çš„å†…å®¹
+    private JTextArea resContentTextField; // è®°å½•ç¿»è¯‘çš„å†…å®¹
+    private JCheckBox translateFlag;       //æ ‡è®°å•è¯çš„è·å–æ¥æº
+                                           //é€‰ä¸­ï¼šæ‰‹åŠ¨è¾“å…¥    æœªé€‰ä¸­ï¼šå‰ªåˆ‡æ¿è·å–
     private Container topContainer;
     private Container downContainer;
     private JButton button;
-    public MainFrame() {//³õÊ¼»¯¿Ø¼ş
+    public MainFrame() {//åˆå§‹åŒ–æ§ä»¶
         srcContentTextField = new JTextArea();
         resContentTextField = new JTextArea();
         translateFlag = new JCheckBox();
@@ -32,14 +32,14 @@ public class MainFrame extends JFrame implements Runnable {
 
     public void setMinWindowLayout() {
         // TODO Auto-generated method stub
-        //²¼¾ÖÉèÖÃ
+        //å¸ƒå±€è®¾ç½®
     	srcContentTextField.setBorder(new LineBorder(new java.awt.Color(127,157,185), 1, false));
         resContentTextField.setBorder(new LineBorder(new java.awt.Color(127, 157, 185), 1, false));
         srcContentTextField.setLineWrap(false);
         resContentTextField.setLineWrap(true);
         this.setLayout(new BorderLayout());
 
-        translateFlag.setToolTipText("ÊÖ¶¯ÊäÈëÈ¡´Ê");
+        translateFlag.setToolTipText("æ‰‹åŠ¨è¾“å…¥å–è¯");
         topContainer.setLayout(new BorderLayout());
         topContainer.add(srcContentTextField, BorderLayout.CENTER);
         topContainer.add(translateFlag, BorderLayout.EAST);
@@ -62,19 +62,19 @@ public class MainFrame extends JFrame implements Runnable {
 				}
         	}
         });
-        translateFlag.addActionListener(new ActionListener() {//ÉèÖÃJCheckBoxµÄ¼àÌı
+        translateFlag.addActionListener(new ActionListener() {//è®¾ç½®JCheckBoxçš„ç›‘å¬
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
                 if (translateFlag.isSelected()) {
-                    translateFlag.setToolTipText("×Ô¶¯¸´ÖÆÈ¡´Ê");    //ÉèÖÃÌáÊ¾
+                    translateFlag.setToolTipText("è‡ªåŠ¨å¤åˆ¶å–è¯");    //è®¾ç½®æç¤º
                 } else {
-                    translateFlag.setToolTipText("ÊÖ¶¯ÊäÈëÈ¡´Ê");
+                    translateFlag.setToolTipText("æ‰‹åŠ¨è¾“å…¥å–è¯");
                 }
             }
         });
-        //¼àÌıJTextFieldÀïÃæÄÚÈİ¸Ä±äµÄÊÂ¼ş
+        //ç›‘å¬JTextFieldé‡Œé¢å†…å®¹æ”¹å˜çš„äº‹ä»¶
         srcContentTextField.getDocument().addDocumentListener(new DocumentListener() {    
 
             @Override
@@ -83,17 +83,17 @@ public class MainFrame extends JFrame implements Runnable {
             }
 
             @Override
-            public void insertUpdate(DocumentEvent arg0) {    //ÄÚÈİ¸Ä±ä
+            public void insertUpdate(DocumentEvent arg0) {    //å†…å®¹æ”¹å˜
 
                 try {
-                    //µ÷ÓÃ½Ó¿Ú»ñÈ¡·­Òë½á¹û
+                    //è°ƒç”¨æ¥å£è·å–ç¿»è¯‘ç»“æœ
                     String result = TextTranslate.getTranslateResult(srcContentTextField.getText());
                     if (result == "")
-                        result = "!Sorry,Î´ÕÒµ½¸Ã´Ê!";
-                    resContentTextField.setText(result);//ÏÔÊ¾·­Òë½á¹û
+                        result = "!Sorry,æœªæ‰¾åˆ°è¯¥è¯!";
+                    resContentTextField.setText(result);//æ˜¾ç¤ºç¿»è¯‘ç»“æœ
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                    resContentTextField.setText("!Sorry,Î´ÕÒµ½¸Ã´Ê!");
+                    resContentTextField.setText("!Sorry,æœªæ‰¾åˆ°è¯¥è¯!");
                 }
             }
 
@@ -111,11 +111,11 @@ public class MainFrame extends JFrame implements Runnable {
     public void run() {
         // TODO Auto-generated method stub
         while (true) {
-            if (!translateFlag.isSelected()) {  //Èç¹ûJCheckBoxÃ»ÓĞ±»Ñ¡ÖĞ£¬Ôò´Ó¼ôÇĞ°å»ñÈ¡µ¥´Ê
+            if (!translateFlag.isSelected()) {  //å¦‚æœJCheckBoxæ²¡æœ‰è¢«é€‰ä¸­ï¼Œåˆ™ä»å‰ªåˆ‡æ¿è·å–å•è¯
                 try {
                     String content = getSimpleWord(ClipboradUtils.getClipboardText());
                     if(!content.equals(getSimpleWord(srcContentTextField.getText()))) {
-                    	srcContentTextField.setText(content);
+                    	srcContentTextField.setText(content.replace("\n", ""));
                     }
                 } catch (Exception e) { 
                     // TODO Auto-generated catch block
@@ -131,10 +131,10 @@ public class MainFrame extends JFrame implements Runnable {
         }
     }
 
-    public static String getSimpleWord(String content) {//È¥µôÇĞ°åÀïÃæµÄÒ»Ğ©ÌØÊâ×Ö·û
-        return content.replaceAll("(\r\n)", " ").replace("¡°", "\"").replace("¡±", "\"")
-        		.replace("¡®", "\'").replace("¡¯", "\'").replace("¨C", "-").replace("¡ª", "-")
-        		.replace("£¿", "?").replace("£¡", "!").replace("¡­", "...").replace("£º", ":")
-        		.replace("£»", ";").trim();
+    public static String getSimpleWord(String content) {//å»æ‰åˆ‡æ¿é‡Œé¢çš„ä¸€äº›ç‰¹æ®Šå­—ç¬¦
+        return content.replaceAll("(\r\n)", " ").replace("â€œ", "\"").replace("â€", "\"")
+        		.replace("â€˜", "\'").replace("â€™", "\'").replace("â€“", "-").replace("â€”", "-")
+        		.replace("ï¼Ÿ", "?").replace("ï¼", "!").replace("â€¦", "...").replace("ï¼š", ":")
+        		.replace("ï¼›", ";").trim();
     }
 }
